@@ -295,6 +295,16 @@ class parse{
             if(sizeof($import) > 10){
                 $import = array_slice($import, 0, 10);
             }
+            //Check for range identifier
+            if((is_numeric($import[3]) && is_numeric($import[4]))){
+                        //this is ok
+                } else {
+                        //not ok => fix the random ranges
+                        $edistart = array_slice($import, 0, 3);
+                        $ediinsert = array(0, 0);
+                        $ediend = array_slice($import, 3);
+                        $import = array_merge($edistart, $ediinsert, $ediend);
+                }
             if(sizeof($import) < 9){
                 for($i = sizeof($import) ; $i < 10 ; $i ++){
                     $import[$i] = 0;
